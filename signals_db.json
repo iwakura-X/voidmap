@@ -1,0 +1,32 @@
+{
+    "Pulsar 1": {
+        "freq": 1420.0,
+        "stren": 0.8,
+        "pol": "R",
+        "info_levels": {
+            "1": "Neutron star, rapidly rotating.",
+            "2": "Pulse period: 0.033 seconds. Emits in radio band.",
+            "3": "Contains a binary companion. Gravitational waves detected."
+        }
+    },
+    "Quasar X": {
+        "freq": 1400.0,
+        "stren": 0.5,
+        "pol": "L",
+        "info_levels": {
+            "1": "Active galactic nucleus, very distant.",
+            "2": "Redshift: 3.2. Luminosity: 10^41 W.",
+            "3": "Central black hole mass: 10^9 solar masses."
+        }
+    },
+    "Andromeda Galaxy": {
+        "freq": 1500.0,
+        "stren": 0.2,
+        "pol": "L",
+        "info_levels": {
+            "1": "Spiral galaxy, 2.5 million l.y. away.",
+            "2": "Diameter: 220,000 l.y. . Contains over 1 trillion stars.",
+            "3": "Colliding with Triangulum Galaxy in 4 billion years."
+        }
+    }
+}
