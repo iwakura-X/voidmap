@@ -1,6 +1,14 @@
-# Voidmap — консольный радиоастроном
+# Voidmap
 
 Находи и обрабатывай сигналы из космоса. Вдохновлено Voices of the Void.
+
+## Установка и запуск
+``` bash
+git clone https://github.com/iwakura-X/voidmap.git
+cd voidmap
+python main.py
+```
+Никаких дополнительных модулей и библиотек, кроме самого Python не требуется.
 
 ## Команды
 
@@ -38,3 +46,4 @@
         }
     }
 }
+```
