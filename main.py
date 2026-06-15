@@ -46,7 +46,6 @@ class Console(cmd.Cmd):
         print()
         print("  “The universe is not only stranger than we imagine, it is stranger than we can imagine.”")
 
-
     def do_save_game(self, arg):
         '''Save current progress to savegame.json'''
         save_data = {
@@ -116,6 +115,9 @@ class Console(cmd.Cmd):
         try:
             freq = float(parts[0])
             pol = parts[1]
+            if pol not in ("L", "R"):
+                print("Polarity must be 'R' or 'L' (right or left)ю")
+                return
             print("Tuning...")
             sleep(3)
             self.world.telescope.tune(freq, pol)
@@ -131,7 +133,6 @@ class Console(cmd.Cmd):
     def do_q(self, arg):
         '''Exit the Console'''
         print("Thanks for playing!!!")
-        sleep(1)
         return True
 
     def do_list(self, arg):
@@ -298,7 +299,7 @@ class SignalSource:
         self.process_level += 1
         if self.process_level == 1:
             world.add_exp(self.name)
-        print(f"Upgraded '{self.name}' to level {self.process_level}.")
+        print(f"Upgraded signal to level {self.process_level}.")
         return True
 
 
@@ -357,7 +358,7 @@ class World:
                 self.telescope.unprocessed.append(raw)
 
         # Ложные сигналы-обманки (вероятность 35%)
-        if random.random() < 0.35:
+        if random.random() < 0.10:
             num_fake = random.randint(1, 3)
             for _ in range(num_fake):
                 fake_freq = random.uniform(100.0, 5000.0)
