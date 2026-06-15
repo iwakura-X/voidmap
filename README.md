@@ -2,6 +2,8 @@
 
 Находи и обрабатывай сигналы из космоса в терминале. Вдохновлено Voices of the Void. Рекомендуется использование в cool-retro-term (https://github.com/Swordfish90/cool-retro-term) для лучшего эффекта и крутого вайба.
 
+Вдохновлено Voices of the Void. 
+
 ## Установка и запуск
 ``` bash
 git clone https://github.com/iwakura-X/voidmap.git
