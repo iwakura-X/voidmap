@@ -338,5 +338,25 @@
             "2": "Redshift 0.158, luminosity ~2 trillion Suns.",
             "3": "Has a relativistic jet visible in radio."
         }
+    },
+    "The '67' Nebula": {
+        "freq": 67.0,
+        "stren": 0.67,
+        "pol": "R",
+        "info_levels": {
+            "1": "Looks like two digits. Six and Seven.",
+            "2": "Emits 67 in morse code in radio spectre.",
+            "3": "The 67th nebula in a history of astronomy."
+        }
+    },
+    "52": {
+        "freq": 52.0,
+        "stren": 0.52,
+        "pol": "R",
+        "info_levels": {
+            "1": "52",
+            "2": "Да здравствует Санкт Петербург",
+            "3": "И этот город наш"
+        }
     }
 }
