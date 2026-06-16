@@ -1,15 +1,68 @@
-import cmd, json, random, os, threading, time, pygame
-import simpleaudio as sa
+import cmd, json, random, os, threading, pygame, time
+import numpy as np
+from time import sleep
 
-pygame.mixer.init()
+pygame.mixer.init(frequency=44100, size=-16, channels=1)
+
+SAMPLE_RATE = 44100
+
+def _generate_tone(freq, duration, volume=0.3):
+    sample_rate = 44100
+    t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
+    wave = np.sin(2 * np.pi * freq * t) * volume
+    wave = (wave * 32767).astype(np.int16)
+    return pygame.sndarray.make_sound(wave)
+
+def sound_ping():
+    _generate_tone(1200, 0.15).play()
+
+def sound_ping_fail():
+    _generate_tone(600, 0.2).play()
+
+def sound_fake_signal():
+    _generate_tone(800, 0.08).play()
+    time.sleep(0.05)
+    _generate_tone(400, 0.08).play()
+
+def sound_signal_saved():
+    _generate_tone(1000, 0.1).play()
+    time.sleep(0.1)
+    _generate_tone(1200, 0.1).play()
+
+def sound_signal_processed():
+    _generate_tone(800, 0.15).play()
+    time.sleep(0.05)
+    _generate_tone(1000, 0.15).play()
+    time.sleep(0.05)
+    _generate_tone(1200, 0.2).play()
+
+def sound_error():
+    _generate_tone(300, 0.3).play()
+
+def sound_success():
+    _generate_tone(880, 0.1).play()
+    time.sleep(0.08)
+    _generate_tone(1100, 0.15).play()
+
+def sound_level_up():
+    _generate_tone(600, 0.1).play()
+    time.sleep(0.07)
+    _generate_tone(900, 0.1).play()
+    time.sleep(0.07)
+    _generate_tone(1200, 0.15).play()
+    """Сигнал рядом — быстрый повторяющийся сигнал"""
+    for _ in range(3):
+        _play_tone(1400, 0.06, 0.3)
+        sleep(0.04)
 
 def play_ambience(ambience_file):
     pygame.mixer.music.load(ambience_file)
     pygame.mixer.music.play(loops=-1)
     while True:
-        time.sleep(1)
+        sleep(1)
 
 ambience_path = 'sounds/ambience.wav'
+
 if os.path.exists(ambience_path):
     ambience_thread = threading.Thread(target=play_ambience, args=(ambience_path,), daemon=True)
     ambience_thread.start()
@@ -75,8 +128,10 @@ class Console(cmd.Cmd):
             with open("savegame.json", "w") as f:
                 json.dump(save_data, f, indent=4)
             print("Game saved to savegame.json")
+            sound_success()
         except Exception as e:
             print(f"Error saving game: {e}")
+            sound_error()
 
     def do_load_game(self, arg):
         '''Load progress from savegame.json'''
@@ -124,6 +179,7 @@ class Console(cmd.Cmd):
         self.world.update_max_process_level()
         print(f"Game loaded. Found {len(self.world.sources)} saved signals.")
         print(f"Max processing level: {self.world.max_process_level}/3")
+        sound_succes()
 
     def do_tune(self, arg):
         '''Tune the Telescope'''
@@ -140,8 +196,10 @@ class Console(cmd.Cmd):
             print("Tuning...")
             sleep(3)
             self.world.telescope.tune(freq, pol)
+            sound_success()
         except ValueError:
             print("Frequency must be a number")
+            sound_error()
 
     def do_scan(self, arg):
         '''Run one scan cycle'''
@@ -152,6 +210,7 @@ class Console(cmd.Cmd):
     def do_q(self, arg):
         '''Exit the Console'''
         print("Thanks for playing!!!")
+        sound_success()
         return True
 
     def do_list(self, arg):
@@ -176,6 +235,7 @@ class Console(cmd.Cmd):
 
             # Проверка на ложный сигнал
             if raw.get("is_fake", False):
+                sound_fake_signal()
                 print("Signal dissolved into static... It was a false alarm.")
                 return
 
@@ -187,6 +247,7 @@ class Console(cmd.Cmd):
                     break
             if found is None:
                 print("Unknown signal, cannot save.")
+                #sound_ping_fail()
                 return
 
             data_copy = {
@@ -197,6 +258,7 @@ class Console(cmd.Cmd):
             }
             new_src = SignalSource(found.name, data_copy, process_level=0)
             self.world.sources.append(new_src)
+            sound_signal_saved()
             print(f"Signal from {found.freq} MHz saved. Use 'catalog' to see saved signals.")
         except ValueError:
             print("Invalid index.")
@@ -228,8 +290,9 @@ class Console(cmd.Cmd):
                 return
             src.upgrade(self.world)
             print(src.emit())
+            sound_signal_processed()
             print(f"Processed signal to level {src.process_level}.")
-            # Выводим новую инфу
+            ## Выводим новую инфу
             #print(src.emit())
         except ValueError:
             print("Invalid Index.")
@@ -250,6 +313,7 @@ class Console(cmd.Cmd):
         if is_noise:
             print("Pinging...")
             sleep(5)
+            sound_ping_fail()
             print("Static noise. No clear signal detected.")
             return
 
@@ -262,6 +326,7 @@ class Console(cmd.Cmd):
 
         print("Pinging...")
         sleep(5)
+        sound_ping()
         print(f"Possible signal near {guessed_freq} MHz.")
 
         # Подсказка о расстоянии (чем ближе, тем точнее)
@@ -392,8 +457,10 @@ class World:
                 self.telescope.unprocessed.append(fake_raw)
 
         if not self.telescope.unprocessed:
+            sound_error()
             print("No signals detected.")
         else:
+            sound_success()
             print(f"Detected {len(self.telescope.unprocessed)} signal(s). Use 'list' to see them.")
 
     def find_nearest_signal(self):
