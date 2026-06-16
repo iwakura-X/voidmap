@@ -1,18 +1,37 @@
-import cmd
-import json
-import random
-import os
-from time import sleep
+import cmd, json, random, os, threading, time, pygame
+import simpleaudio as sa
+
+pygame.mixer.init()
+
+def play_ambience(ambience_file):
+    pygame.mixer.music.load(ambience_file)
+    pygame.mixer.music.play(loops=-1)
+    while True:
+        time.sleep(1)
+
+ambience_path = 'sounds/ambience.wav'
+if os.path.exists(ambience_path):
+    ambience_thread = threading.Thread(target=play_ambience, args=(ambience_path,), daemon=True)
+    ambience_thread.start()
 
 class Console(cmd.Cmd):
-    intro = "Welcome to Voidmap! Hope you'll enjoy playing my game!. Type 'help' to list commands."
+    intro = "Welcome to Voidmap! Hope you'll enjoy playing my game! Type 'help' to list commands."
     prompt = "root@RT-64~#: "
 
     def __init__(self, world):
         super().__init__()
         self.world = world
 
+    def do_sound_off(self, arg):
+        '''Toggle sound on/off'''
+        pygame.mixer.music.pause()
+
+    def do_sound_on(self, arg):
+        '''Start sound'''
+        pygame.mixer.music.unpause()
+
     def do_fastfetch(self, arg):
+        '''shows in-game machine info'''
         art = r"""
                                                  _.oo.
                          _.u[[/;:,.         .odMMMMMM'
