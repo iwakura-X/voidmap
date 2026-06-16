@@ -1,0 +1,362 @@
+{
+    "Quantum Fluctuation": {
+        "freq": 999.9,
+        "stren": 0.01,
+        "pol": "R",
+        "info_levels": {
+            "1": "Signal appears and disappears instantly.",
+            "2": "Heisenberg uncertainty prevents measurement.",
+            "3": "Maybe virtual particles."
+        }
+    },
+    "Echo of Big Bang": {
+        "freq": 11.0,
+        "stren": 0.001,
+        "pol": "L",
+        "info_levels": {
+            "1": "Very low frequency, faint.",
+            "2": "Cosmic microwave background residual?",
+            "3": "Contains relic radiation from primordial universe."
+        }
+    },
+    "Fast Radio Burst": {
+        "freq": 1250.0,
+        "stren": 0.9,
+        "pol": "R",
+        "info_levels": {
+            "1": "Short, intense burst.",
+            "2": "FRB 2026, duration 3 ms.",
+            "3": "Might be from a magnetar or alien civilization."
+        }
+    },
+    "Voyager 1": {
+        "freq": 8420.0,
+        "stren": 0.05,
+        "pol": "L",
+        "info_levels": {
+            "1": "Familiar pattern from human probes.",
+            "2": "Data: 'Hello from the stars'",
+            "3": "Golden record encoded."
+        }
+    },
+    "Linux Torvalds": {
+        "freq": 1991.0,
+        "stren": 0.3,
+        "pol": "R",
+        "info_levels": {
+            "1": "Slight Finnish accent.",
+            "2": "Message: 'This is Linus, and I'm still the maintainer.'",
+            "3": "Probably a tribute signal from Earth."
+        }
+    },
+    "Repository Update": {
+        "freq": 5432.0,
+        "stren": 0.2,
+        "pol": "L",
+        "info_levels": {
+            "1": "Binary data stream, appears like package list.",
+            "2": "Contains 'git clone' instructions.",
+            "3": "Don't run it, might fork bomb the receiver."
+        }
+    },
+    "Rice": {
+        "freq": 6969.0,
+        "stren": 0.7,
+        "pol": "R",
+        "info_levels": {
+            "1": "Signal shaped like riced desktop.",
+            "2": "ASCII art: terminal with i3, polybar, and neofetch.",
+            "3": "Transmission includes: 'dotfiles on GitHub'"
+        }
+    },
+        "The Answer": {
+        "freq": 4242.0,
+        "stren": 0.42,
+        "pol": "R",
+        "info_levels": {
+            "1": "Signal with unusual modulation.",
+            "2": "Decoding yields: 'THE ANSWER TO THE ULTIMATE QUESTION'",
+            "3": "... but the data is corrupted. Remains a mystery."
+        }
+    },
+    "Hello World!": {
+        "freq": 2024.0,
+        "stren": 0.1,
+        "pol": "L",
+        "info_levels": {
+            "1": "Seems artificial, repetitive pattern.",
+            "2": "Repeating: 'Hello World!' in Morse code.",
+            "3": "Translated: 'printf(\"Hello World!\\n\");' — a programmer's signature?"
+        }
+    },
+    "tux_ping": {
+        "freq": 3141.0,
+        "stren": 0.3,
+        "pol": "R",
+        "info_levels": {
+            "1": "Weak signal shaped like a penguin.",
+            "2": "Spectrum resembles logo of Tux, the Linux mascot.",
+            "3": "Message embedded: 'Use Arch btw.'"
+        }
+    },
+    "Kernel Panic": {
+        "freq": 6666.0,
+        "stren": 0.9,
+        "pol": "L",
+        "info_levels": {
+            "1": "Erratic pulses, like a system crash.",
+            "2": "Data contains: 'Kernel panic - not syncing: VFS: Unable to mount root fs'",
+            "3": "Source unknown. Possibly a rogue AI in deep space."
+        }
+    },
+    "Silence": {
+        "freq": 0.0,
+        "stren": 0.0,
+        "pol": "R",
+        "info_levels": {
+            "1": "No signal. Just pure static.",
+            "2": "Wait, there's a whisper: 'shhh...'",
+            "3": "The universe holds its breath."
+        }
+    },
+    "WOW! Signal": {
+        "freq": 1420.0,
+        "stren": 0.99,
+        "pol": "R",
+        "info_levels": {
+            "1": "Narrowband signal, intensity 30 sigma.",
+            "2": "Mimics the famous Wow! signal from 1977.",
+            "3": "No origin found. Could be SETI legacy."
+        }
+    },
+    "GNU": {
+        "freq": 1983.0,
+        "stren": 0.25,
+        "pol": "L",
+        "info_levels": {
+            "1": "Signal with copyright notice.",
+            "2": "Decoded: 'GNU General Public License v3'",
+            "3": "Probably transmitted from a free software satellite."
+        }
+    },
+    "error_404": {
+        "freq": 4044.0,
+        "stren": 0.15,
+        "pol": "R",
+        "info_levels": {
+            "1": "Signal not found?",
+            "2": "Ghost echo from a cosmic CDN.",
+            "3": "Message: '404 - Galaxy not found. Retry later.'"
+        }
+    },
+    "sudo": {
+        "freq": 9933.0,
+        "stren": 0.8,
+        "pol": "L",
+        "info_levels": {
+            "1": "Command-like signal pattern.",
+            "2": "Attempt to execute: 'sudo su'",
+            "3": "Access denied. Insufficient privileges."
+        }
+    },
+    "rm -rf /": {
+        "freq": 7777.0,
+        "stren": 0.95,
+        "pol": "R",
+        "info_levels": {
+            "1": "Deleting itself? Signal fading.",
+            "2": "Last bytes: 'rm -rf /'",
+            "3": "Source vanished. Probably a rogue script."
+        }
+    },
+    "Pulse of the Void": {
+        "freq": 1.618,
+        "stren": 0.05,
+        "pol": "L",
+        "info_levels": {
+            "1": "Ultrasonic hum at golden ratio.",
+            "2": "Mathematical perfection.",
+            "3": "Maybe the universe is a simulation."
+        }
+    },
+    "Hardware Error": {
+        "freq": 5555.0,
+        "stren": 0.6,
+        "pol": "R",
+        "info_levels": {
+            "1": "Jittery, glitchy signal.",
+            "2": "Error code: 0xDEADBEEF",
+            "3": "SEGFAULT. Core dumped."
+        }
+    },
+    "meme_radio": {
+        "freq": 8069.0,
+        "stren": 0.2,
+        "pol": "L",
+        "info_levels": {
+            "1": "Broadcasting funny audio.",
+            "2": "Repeating: 'Never gonna give you up...'",
+            "3": "You've been rickrolled by deep space."
+        }
+    },
+    "The Lone Tux": {
+        "freq": 2963.0,
+        "stren": 0.4,
+        "pol": "R",
+        "info_levels": {
+            "1": "Image of a penguin floats in spectrum.",
+            "2": "Text: 'I use Arch, btw.'",
+            "3": "It's a lone Tux drifting through the void."
+        }
+    },
+    "Alien Abduction": {
+        "freq": 2250.0,
+        "stren": 0.1,
+        "pol": "L",
+        "info_levels": {
+            "1": "Very weak, almost lost.",
+            "2": "Speech: 'They took me...' - cuts off.",
+            "3": "No further data. Possibly hoax."
+        }
+    },
+    "RMS": {
+        "freq": 4200.0,
+        "stren": 0.5,
+        "pol": "R",
+        "info_levels": {
+            "1": "RMS noise with random spikes.",
+            "2": "Mean value close to zero.",
+            "3": "Calculating sigma... no significant detection."
+        }
+    },
+        "Crab Pulsar": {
+        "freq": 1330.0,
+        "stren": 0.85,
+        "pol": "R",
+        "info_levels": {
+            "1": "Pulsar in the Crab Nebula, supernova remnant.",
+            "2": "Period 33 ms. Emits in radio and X-rays.",
+            "3": "Age ~1000 years. Used as a stable time standard."
+        }
+    },
+    "Centaurus A": {
+        "freq": 780.0,
+        "stren": 0.6,
+        "pol": "L",
+        "info_levels": {
+            "1": "Active galaxy, strong radio source.",
+            "2": "Contains a supermassive black hole. Radio lobes extend 1 million ly.",
+            "3": "One of the closest radio galaxies to Earth (12 million ly)."
+        }
+    },
+    "Orion Nebula": {
+        "freq": 230.0,
+        "stren": 0.4,
+        "pol": "R",
+        "info_levels": {
+            "1": "Star-forming region in Orion constellation.",
+            "2": "Distance ~1344 ly. Contains proplyds and young stars.",
+            "3": "Strong water maser emission detected."
+        }
+    },
+    "Sagittarius A*": {
+        "freq": 860.0,
+        "stren": 0.7,
+        "pol": "L",
+        "info_levels": {
+            "1": "Supermassive black hole at Galactic center.",
+            "2": "Mass ~4 million Suns. Observed in radio and infrared.",
+            "3": "Produces intermittent flares due to accretion."
+        }
+    },
+    "Cygnus X-1": {
+        "freq": 520.0,
+        "stren": 0.55,
+        "pol": "R",
+        "info_levels": {
+            "1": "Black hole binary system.",
+            "2": "First strong black hole candidate discovered.",
+            "3": "Mass ~21 solar masses, accretion disk emits radio."
+        }
+    },
+    "Whirlpool Galaxy": {
+        "freq": 1150.0,
+        "stren": 0.3,
+        "pol": "L",
+        "info_levels": {
+            "1": "Spiral galaxy M51.",
+            "2": "Interacting with companion galaxy NGC 5195.",
+            "3": "Rich in star formation, radio continuum from supernova remnants."
+        }
+    },
+    "Cas A": {
+        "freq": 420.0,
+        "stren": 0.65,
+        "pol": "R",
+        "info_levels": {
+            "1": "Cassiopeia A supernova remnant.",
+            "2": "Brightest radio source in the sky outside the Solar system.",
+            "3": "Exploded ~1680, expanding at 5000 km/s."
+        }
+    },
+    "Tau Bubbles": {
+        "freq": 3050.0,
+        "stren": 0.2,
+        "pol": "L",
+        "info_levels": {
+            "1": "Large gamma-ray bubbles above Milky Way.",
+            "2": "Discovered by Fermi telescope, origin uncertain.",
+            "3": "Probably from past AGN activity of Sagittarius A*."
+        }
+    },
+    "Perseus Cluster": {
+        "freq": 720.0,
+        "stren": 0.45,
+        "pol": "R",
+        "info_levels": {
+            "1": "Galaxy cluster, strong diffuse radio emission.",
+            "2": "Contains a mini-halo and a radio relic.",
+            "3": "Intracluster medium emits thermal X-rays and synchrotron radio."
+        }
+    },
+    "SS 433": {
+        "freq": 950.0,
+        "stren": 0.5,
+        "pol": "L",
+        "info_levels": {
+            "1": "Microquasar in the Milky Way.",
+            "2": "Precessing relativistic jets.",
+            "3": "Jets move at 26% speed of light, produce radio emission."
+        }
+    },
+    "3C 273": {
+        "freq": 1660.0,
+        "stren": 0.75,
+        "pol": "R",
+        "info_levels": {
+            "1": "Quasar, first known optical quasar.",
+            "2": "Redshift 0.158, luminosity ~2 trillion Suns.",
+            "3": "Has a relativistic jet visible in radio."
+        }
+    },
+    "The '67' Nebula": {
+        "freq": 67.0,
+        "stren": 0.67,
+        "pol": "R",
+        "info_levels": {
+            "1": "Looks like two digits. Six and Seven.",
+            "2": "Emits 67 in morse code in radio spectre.",
+            "3": "The 67th nebula in a history of astronomy."
+        }
+    },
+    "52": {
+        "freq": 52.0,
+        "stren": 0.52,
+        "pol": "R",
+        "info_levels": {
+            "1": "52",
+            "2": "Да здравствует Санкт Петербург",
+            "3": "И этот город наш"
+        }
+    }
+}
