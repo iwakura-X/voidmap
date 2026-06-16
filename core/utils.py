@@ -2,9 +2,19 @@ import json
 import os
 from .models import SignalSource
 
-def load_signals_db(filename = os.path.join(os.path.dirname(__file__), "signals_db.json")):
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller"""
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+def load_signals_db(filename="signals_db.json"):
     """Загружает БД сигналов из JSON и возвращает список объектов SignalSource."""
-    with open(filename, 'r') as f:
+    path = resource_path(os.path.join("core", filename))
+    with open(path, 'r') as f:
         data = json.load(f)
     sources = []
     for name, attrs in data.items():

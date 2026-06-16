@@ -9,11 +9,12 @@ import numpy as np
 
 pygame.mixer.init(frequency=44100, size=-16, channels=1)
 
-def play_ambience(ambience_file, loops=-1):
+def play_ambience(ambience_file="sounds/ambience.wav"):
     """Запускает фоновую музыку с зацикливанием."""
-    if os.path.exists(ambience_file):
-        pygame.mixer.music.load(ambience_file)
-        pygame.mixer.music.play(loops=loops)
+    path = resource_path(os.path.join("core", ambience_file))
+    if os.path.exists(path):
+        pygame.mixer.music.load(path)
+        pygame.mixer.music.play(loops=-1)
         return True
     else:
         print(f"Ambience file not found: {ambience_file}")
