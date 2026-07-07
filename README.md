@@ -11,9 +11,9 @@
 ``` bash
 git clone https://github.com/iwakura-X/voidmap.git
 cd voidmap
+pip install -r requirements.txt
 python main.py
 ```
-Никаких дополнительных модулей и библиотек, кроме самого Python не требуется.
 
 ## Команды
 
