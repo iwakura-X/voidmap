@@ -53,4 +53,4 @@ python main.py
 }
 ```
 
-Current version: v1.21
+Current version: v1.21.1
