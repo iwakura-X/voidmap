@@ -1,5 +1,6 @@
 # core/sounds.py
 import os
+import sys
 import threading
 from time import sleep
 
@@ -9,9 +10,18 @@ import numpy as np
 
 pygame.mixer.init(frequency=44100, size=-16, channels=1)
 
-def play_ambience(ambience_file="sounds/ambience.wav"):
+def play_ambience(ambience_file):
     """Запускает фоновую музыку с зацикливанием."""
-    path = resource_path(os.path.join("core", ambience_file))
+    # Если файл существует по переданному пути — используем его
+    if os.path.exists(ambience_file):
+        path = ambience_file
+    else:
+        # fallback для упакованного приложения (если понадобится)
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        path = os.path.join(base_path, "core", ambience_file)
     if os.path.exists(path):
         pygame.mixer.music.load(path)
         pygame.mixer.music.play(loops=-1)

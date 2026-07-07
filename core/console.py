@@ -241,6 +241,7 @@ class Console(cmd.Cmd):
                 print("Signal already fully processed.")
                 play_success()
                 return
+            
             src.upgrade(self.world)
             print(src.emit())
             print(f"Processed signal to level {src.process_level}.")

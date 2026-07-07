@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 from .models import SignalSource
 
 def resource_path(relative_path):
