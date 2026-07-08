@@ -28,6 +28,7 @@ class Console(cmd.Cmd):
 
     def do_fastfetch(self, arg):
         '''shows in-game machine info'''
+        self.world.trigger_alien_event()
         art = r"""
                                                  _.oo.
                          _.u[[/;:,.         .odMMMMMM'
@@ -63,6 +64,7 @@ class Console(cmd.Cmd):
 
     def do_save_game(self, arg):
         '''Save current progress to savegame.json'''
+        self.world.trigger_alien_event()
         save_data = {
             "signals": {src.name: src.process_level for src in self.world.sources},
             "max_process_level": self.world.max_process_level
@@ -78,6 +80,7 @@ class Console(cmd.Cmd):
 
     def do_load_game(self, arg):
         '''Load progress from savegame.json'''
+        self.world.trigger_alien_event()
         if not os.path.exists("savegame.json"):
             print("No save file found. Use 'save_game' first.")
             play_error()
@@ -128,6 +131,7 @@ class Console(cmd.Cmd):
 
     def do_tune(self, arg):
         '''Tune the Telescope'''
+        self.world.trigger_alien_event()
         parts = arg.split()
         if len(parts) < 2:
             print("Usage: tune <freq> <pol>")
@@ -148,6 +152,7 @@ class Console(cmd.Cmd):
 
     def do_scan(self, arg):
         '''Run one scan cycle'''
+        self.world.trigger_alien_event()
         print("Scanning bandwidth...")
         sleep(3)
         self.world.update()
@@ -160,6 +165,7 @@ class Console(cmd.Cmd):
 
     def do_list(self, arg):
         '''Print signals list'''
+        self.world.trigger_alien_event()
         if not self.world.telescope.unprocessed:
             print("No pending signals. Run 'scan' first.")
             play_error()
@@ -170,6 +176,7 @@ class Console(cmd.Cmd):
 
     def do_save(self, arg):
         '''Save detected signal by index: save 0'''
+        self.world.trigger_alien_event()
         if not arg:
             print("Usage: save <index>")
             return
@@ -209,6 +216,11 @@ class Console(cmd.Cmd):
             sleep(2)
             play_save()
             print(f"Signal from {found.freq} MHz saved. Use 'catalog' to see saved signals.")
+
+            if hasattr(src, 'story') and src.story:
+                if self.world.alien_contact_stage == 0:
+                    self.world.alien_contact_stage = 1
+                    print("A strange feeling washes over you. You are not alone.")
         except ValueError:
             print("Invalid index.")
             play_error()
@@ -218,6 +230,7 @@ class Console(cmd.Cmd):
 
     def do_catalog(self, arg):
         '''List saved signals with their process level and accumulated info'''
+        self.world.trigger_alien_event()
         if not self.world.sources:
             print("No saved signals.")
             return
@@ -228,6 +241,7 @@ class Console(cmd.Cmd):
 
     def do_process(self, arg):
         '''Process saved signal by index: process 0'''
+        self.world.trigger_alien_event()
         if not arg:
             print("Usage: process <index>")
             return
@@ -246,6 +260,14 @@ class Console(cmd.Cmd):
             print(src.emit())
             print(f"Processed signal to level {src.process_level}.")
             play_process()
+            sleep(0.1)
+            #if src.upgrade(self.world):  # upgrade возвращает True, если уровень повысился
+                # Проверяем, является ли сигнал лорным и был ли контакт ещё не установлен
+            if getattr(src, 'story', 'true') and self.world.alien_contact_stage == 0:
+                self.world.alien_contact_stage = 1
+                print("\nA strange feeling washes over you. You are not alone in the universe.")
+            # Можно добавить звук или дополнительное сообщение
+            play_success()  # или специальный звук
             ## Выводим новую инфу
             #print(src.emit())
         except ValueError:
@@ -257,6 +279,7 @@ class Console(cmd.Cmd):
 
     def do_ping(self, arg):
         '''Works as a radar. Just type ping and u'll see'''
+        self.world.trigger_alien_event()
         nearest, dist = self.world.find_nearest_signal()
         if nearest is None:
             print("""All signals discovered! Congratulations!
@@ -298,6 +321,7 @@ class Console(cmd.Cmd):
 
     def do_exp(self, arg):
         '''Shows exp'''
+        self.world.trigger_alien_event()
         count = len(self.world.processed_signal_names)
         max_level = self.world.max_process_level
         print(f"Unique signals processed: {count}")
@@ -310,3 +334,37 @@ class Console(cmd.Cmd):
             print(f"Need {need} more signal(s) to reach level 3.")
         else:
             print("Maximum level reached! You are a true radio astronomer.")
+
+    def do_reply(self, arg):
+        '''Reply to aliens: reply help|ignore|whatever'''
+        if self.world.last_alien_message is None:
+            print("No message to reply to. Wait for them to contact you.")
+            return
+
+        choice = arg.strip().lower()
+        if choice == "help":
+            self.world.alien_reputation += 2
+            print("You send a signal: 'We are open to communication. Tell us how we can help.'")
+            print("Answer: 'Thank you! We will not forget this.'")
+        elif choice == "ignore":
+            self.world.alien_reputation -= 2
+            print("You ignore the signal.")
+            print("Answer: 'Silence speaks louder than words...'")
+        else:
+            self.world.alien_reputation += 1
+            print("You send a neutral response.")
+            print("Answer: 'We acknowledge your presence. We will continue to observe.'")
+
+        self.world.last_alien_message = None
+        play_success()
+
+    def do_report(self, arg):
+        '''Report alien contact to the authorities'''
+        if self.world.last_alien_message is None:
+            print("Nothing to report.")
+            return
+
+        self.world.alien_reputation -= 3
+        self.world.last_alien_message = None
+        print("You filed a report about the alien signal. The authorities will investigate.")
+        play_error()

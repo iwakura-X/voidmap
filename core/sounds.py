@@ -71,3 +71,16 @@ def play_level_up():
     _generate_tone(900, 0.1).play()
     sleep(0.07)
     _generate_tone(1200, 0.15).play()
+
+def play_alien_good():
+    _generate_tone(880, 0.2).play()
+    sleep(0.1)
+    _generate_tone(1100, 0.2).play()
+
+def play_alien_bad():
+    _generate_tone(200, 0.5).play()
+    sleep(0.2)
+    _generate_tone(150, 0.5).play()
+
+def play_alien_neutral():
+    _generate_tone(440, 0.3).play()

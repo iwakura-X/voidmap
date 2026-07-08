@@ -3,7 +3,7 @@ import json
 import os
 import random
 from time import sleep
-from .sounds import play_ping, play_error
+from .sounds import play_ping, play_error, play_alien_bad, play_alien_good, play_alien_neutral
 
 class SignalSource:
     def __init__(self, name, data, process_level=0):
@@ -28,12 +28,14 @@ class SignalSource:
 
     def upgrade(self, world):
         if self.process_level >= world.max_process_level:
-            print(f"Cannot upgrade '{self.name}' further. Need higher experience (current max level: {world.max_process_level}/3).")
+            print(f"Cannot process '{self.name}' further. Need higher experience (current max level: {world.max_process_level}/3).")
             return False
         self.process_level += 1
         if self.process_level == 1:
             world.add_exp(self.name)
-        print(f"Upgraded signal to level {self.process_level}.")
+        sleep(3)
+        print("Processing signal...")
+        print(f"Processed signal to level {self.process_level}.")
         return True
 
 
@@ -62,11 +64,17 @@ class Telescope:
 
 class World:
     def __init__(self):
+        # Gameplay things
         self.sources = []
         self.telescope = Telescope()
         self.all_signals = []   # будет загружено через load_signals_db
         self.processed_signal_names = set()
         self.max_process_level = 1
+        # Lore things
+        self.alien_reputation = 0          # от -10 до +10
+        self.alien_contact_stage = 0       # 0 - нет контакта, 1 - первый контакт установлен
+        self.last_alien_message = None     # текст последнего сообщения
+        self.alien_cooldown = 0            # счётчик для ограничения частоты сообщений
 
     def update_max_process_level(self):
         count = len(self.processed_signal_names)
@@ -96,6 +104,7 @@ class World:
         else:
             print(f"Detected {len(self.telescope.unprocessed)} signal(s). Use 'list' to see them.")
             play_ping()
+    
     def find_nearest_signal(self):
         if not self.all_signals:
             return None, None
@@ -103,3 +112,53 @@ class World:
         nearest = min(self.all_signals, key=lambda src: abs(src.freq - current))
         distance = abs(nearest.freq - current)
         return nearest, distance
+
+    def trigger_alien_event(self):
+        """Вызывается после каждой команды с шансом 5%."""
+        if self.alien_contact_stage == 0:
+            return
+        if random.random() > 0.05:  # 5% шанс
+            return
+        
+        # В зависимости от репутации выбираем сообщение
+        if self.alien_reputation > 0:
+            msg, desc = self._get_good_message()
+        elif self.alien_reputation < 0:
+            msg, desc = self._get_bad_message()
+        else:
+            msg, desc = self._get_neutral_message()
+        
+        self.last_alien_message = msg
+        print(msg)
+        print(f"({desc})")
+        # Здесь можно добавить звук
+
+    def _get_good_message(self):
+        messages = [
+            ("'We appreciate your trust. We will share our knowledge with you.'",
+             "A warm glow emanates from the console."),
+            ("'Your music is chaotic, but we like it. It reminds us of our home star.'",
+             "A strange, uplifting melody seems to play in the background.")
+        ]
+        play_alien_good()
+        return random.choice(messages)
+
+    def _get_bad_message(self):
+        messages = [
+            ("'mankind is fragile.'",
+             "The screen flickers briefly."),
+            ("'do not be afraid of your own faith.'",
+             "A low hum vibrates through the observatory.")
+        ]
+        return random.choice(messages)
+        play_alien_bad()
+
+    def _get_neutral_message(self):
+        messages = [
+            ("'We are still observing you. Your actions will determine our relationship.'",
+             "Static."),
+            ("'We cannot decide if you are friend or foe. Perhaps you need more time.'",
+             "The silence stretches.")
+        ]
+        play_alien_neutral()
+        return random.choice(messages)
