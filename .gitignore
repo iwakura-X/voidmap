@@ -1,2 +1,6 @@
 # ignore this big ass build directory
-build/
+/build/
+/dist/
+*.spec
+__pycache__/
+*.pyc
