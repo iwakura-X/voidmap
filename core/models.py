@@ -33,8 +33,8 @@ class SignalSource:
         self.process_level += 1
         if self.process_level == 1:
             world.add_exp(self.name)
-        sleep(3)
         print("Processing signal...")
+        sleep(3)
         print(f"Processed signal to level {self.process_level}.")
         return True
 
@@ -94,7 +94,10 @@ class World:
 
     def update(self):
         self.telescope.unprocessed = []
+        saved_names = {src.name for src in self.sources}  # множество имён сохранённых сигналов
         for src in self.all_signals:
+            if src.name in saved_names:
+                continue  # пропускаем уже найденные
             raw = self.telescope.listen(src)
             if raw is not None:
                 self.telescope.unprocessed.append(raw)
@@ -104,12 +107,14 @@ class World:
         else:
             print(f"Detected {len(self.telescope.unprocessed)} signal(s). Use 'list' to see them.")
             play_ping()
-    
+
     def find_nearest_signal(self):
-        if not self.all_signals:
+        saved_names = {src.name for src in self.sources}
+        available = [src for src in self.all_signals if src.name not in saved_names]
+        if not available:
             return None, None
         current = self.telescope.current_freq
-        nearest = min(self.all_signals, key=lambda src: abs(src.freq - current))
+        nearest = min(available, key=lambda src: abs(src.freq - current))
         distance = abs(nearest.freq - current)
         return nearest, distance
 
