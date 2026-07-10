@@ -378,7 +378,6 @@ def main():
         world.last_alien_message = None
         # Сразу сохраним имя пользователя для отображения (можно добавить в World)
         world.username = username
-
     elif choice == 1:  # Загрузить игру
         # Проверяем наличие savegame.json
         if not os.path.exists("savegame.json"):

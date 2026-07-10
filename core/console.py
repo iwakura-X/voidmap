@@ -67,7 +67,10 @@ class Console(cmd.Cmd):
         self.world.trigger_alien_event()
         save_data = {
             "signals": {src.name: src.process_level for src in self.world.sources},
-            "max_process_level": self.world.max_process_level
+            "max_process_level": self.world.max_process_level,
+            "alien_reputation": world.alien_reputation,
+            "alien_contact_stage": world.alien_contact_stage,
+            "username": world.username
         }
         try:
             with open("savegame.json", "w") as f:
@@ -86,48 +89,15 @@ class Console(cmd.Cmd):
             play_error()
             return
         try:
-            with open("savegame.json", "r") as f:
-                save_data = json.load(f)
-                play_process()
+            load_progress(self.world, "savegame.json")
+            print("Game loaded.")
+            # Проверяем, есть ли имя пользователя
+            if not self.world.username:
+                self.world.username = login_prompt()  # импортируй login_prompt из main, если нужно
+            print(f"Welcome back, {self.world.username}!")
         except Exception as e:
             print(f"Error loading save file: {e}")
             play_error()
-            return
-
-        # Очищаем текущие данные
-        self.world.sources = []
-        self.world.processed_signal_names.clear()
-
-        # Восстанавливаем сигналы
-        signals_from_save = save_data.get("signals", {})
-        for name, saved_level in signals_from_save.items():
-            # Ищем оригинальные данные о сигнале в базе all_signals
-            original = None
-            for src in self.world.all_signals:
-                if src.name == name:
-                    original = src
-                    break
-            if original is None:
-                print(f"Warning: signal '{name}' not found in database. Skipping.")
-                continue
-            # Создаём копию с сохранённым уровнем обработки
-            data_copy = {
-                "freq": original.freq,
-                "stren": original.stren,
-                "pol": original.pol,
-                "info_levels": original.info_levels
-            }
-            new_src = SignalSource(name, data_copy, process_level=saved_level)
-            self.world.sources.append(new_src)
-
-        # Восстанавливаем max_process_level (или пересчитываем)
-        self.world.max_process_level = save_data.get("max_process_level", 1)
-        # Обновляем множество обработанных сигналов (опыт) на основе загруженных
-        self.world.processed_signal_names = {src.name for src in self.world.sources if src.process_level >= 1}
-        # Пересчитываем max_process_level (на всякий случай)
-        self.world.update_max_process_level()
-        print(f"Game loaded. Found {len(self.world.sources)} saved signals.")
-        print(f"Max processing level: {self.world.max_process_level}/3")
 
     def do_tune(self, arg):
         '''Tune the Telescope'''
@@ -210,17 +180,12 @@ class Console(cmd.Cmd):
                 "pol": found.pol,
                 "info_levels": found.info_levels
             }
-            new_src = SignalSource(found.name, data_copy, process_level=0)
+            new_src = SignalSource(found.name, data_copy, process_level=0, story=found.story)
             self.world.sources.append(new_src)
             print("Saving signal...")
             sleep(2)
             play_save()
             print(f"Signal from {found.freq} MHz saved. Use 'catalog' to see saved signals.")
-
-            if hasattr(src, 'story') and src.story:
-                if self.world.alien_contact_stage == 0:
-                    self.world.alien_contact_stage = 1
-                    print("A strange feeling washes over you. You are not alone.")
         except ValueError:
             print("Invalid index.")
             play_error()
@@ -263,7 +228,7 @@ class Console(cmd.Cmd):
             sleep(0.1)
             #if src.upgrade(self.world):  # upgrade возвращает True, если уровень повысился
                 # Проверяем, является ли сигнал лорным и был ли контакт ещё не установлен
-            if getattr(src, 'story', 'true') and self.world.alien_contact_stage == 0:
+            if src.story and self.world.alien_contact_stage == 0:
                 self.world.alien_contact_stage = 1
                 print("\nA strange feeling washes over you. You are not alone in the universe.")
             # Можно добавить звук или дополнительное сообщение

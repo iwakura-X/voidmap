@@ -56,4 +56,4 @@ chmod +x run.sh
 }
 ```
 
-Current version: v1.3
+Current version: v1.3.1

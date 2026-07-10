@@ -6,13 +6,14 @@ from time import sleep
 from .sounds import play_ping, play_error, play_alien_bad, play_alien_good, play_alien_neutral
 
 class SignalSource:
-    def __init__(self, name, data, process_level=0):
+    def __init__(self, name, data, process_level=0, story=False):
         self.name = name
         self.freq = data.get("freq")
         self.stren = data.get("stren")
         self.pol = data.get("pol")
         self.info_levels = data.get("info_levels", {})
         self.process_level = process_level
+        self.story = story  # сохраняем
 
     def emit(self):
         lines = []
@@ -156,8 +157,8 @@ class World:
             ("'do not be afraid of your own faith.'",
              "A low hum vibrates through the observatory.")
         ]
-        return random.choice(messages)
         play_alien_bad()
+        return random.choice(messages)
 
     def _get_neutral_message(self):
         messages = [
