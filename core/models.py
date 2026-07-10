@@ -75,6 +75,7 @@ class World:
         self.alien_contact_stage = 0       # 0 - нет контакта, 1 - первый контакт установлен
         self.last_alien_message = None     # текст последнего сообщения
         self.alien_cooldown = 0            # счётчик для ограничения частоты сообщений
+        self.username = None
 
     def update_max_process_level(self):
         count = len(self.processed_signal_names)

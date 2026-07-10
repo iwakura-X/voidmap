@@ -11,12 +11,12 @@ from .utils import load_signals_db, save_progress, load_progress
 from .sounds import play_ping, play_fake, play_save, play_process, play_error, play_success, play_level_up
 
 class Console(cmd.Cmd):
-    intro = "Welcome to Voidmap! Hope you'll enjoy playing my game! Type 'help' to list commands."
-    prompt = "root@RT-64~#: "
+    intro = "Welcome to Voidmap! Hope you'll enjoy playing my game! Type 'help' to list commands. I assume you've already read the README.md. If you haven't done so yet, go ahead and do it."
 
     def __init__(self, world):
         super().__init__()
         self.world = world
+        self.prompt = f"{self.world.username}@RT-64~#: "
 
     def do_sound_off(self, arg):
         '''Toggle sound on/off'''
