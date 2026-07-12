@@ -3,6 +3,26 @@
 
 Вдохновлено Voices of the Void. 
 
+## ⚠️ Дисклеймер / Disclaimer
+
+**Все события, персонажи, организации, названия оборудования, частоты, протоколы и процедуры, описанные в этой игре, являются полностью вымышленными.**
+
+Любое совпадение с реально существующими радиотелескопами, системами связи, военными объектами или методами работы с радиооборудованием является случайным и не должно рассматриваться как руководство к действию.
+
+Данная игра — это художественное произведение, созданное в развлекательных целях. Она не моделирует реальные процессы управления радиоаппаратурой, не содержит инструкций по эксплуатации какого-либо реального оборудования и не претендует на достоверность в технической или научной сферах.
+
+Автор не несёт ответственности за любые попытки воспроизведения описанных действий в реальности.
+
+---
+
+**All events, characters, organizations, equipment names, frequencies, protocols, and procedures depicted in this game are entirely fictional.**
+
+Any resemblance to real radio telescopes, communication systems, military facilities, or methods of operating radio equipment is purely coincidental and should not be interpreted as a guide to action.
+
+This game is a work of fiction created for entertainment purposes. It does not simulate real radio control processes, does not contain instructions for operating any real equipment, and does not claim accuracy in technical or scientific fields.
+
+The author assumes no responsibility for any attempts to reproduce the described actions in reality.
+
 ## Сюжет
 
 Вы — оператор радиотелескопа ТНА-1500, расположенного в городе Калязин, Тверская область. Ваша задача — сканировать космос, находить аномальные сигналы и расшифровывать их, работая вахтовым методом в заброшенной обсерватории. Вокруг — глухая тишина, лишь изредка нарушаемая гулом старого оборудования. Но вы здесь не случайно: ваша цель — разобраться в том, что скрывается за сигналами, которые не вписываются в стандартную астрофизику.
@@ -31,6 +51,8 @@ chmod +x run.sh
 | `ping` | Радар – примерная наводка на ближайший неизученный сигнал |
 | `exp` | Прогресс: сколько сигналов обработано и доступный уровень |
 | `q` | Выйти из игры |
+| `reply` | Ответить на сообщение |
+| `report` | Зарепортить сообщение |
 
 ## Прогрессия
 

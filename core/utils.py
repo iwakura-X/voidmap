@@ -4,7 +4,7 @@ import sys
 from .models import SignalSource
 
 def resource_path(relative_path):
-    """Get absolute path to resource, works for dev and for PyInstaller"""
+    """Получает абсолютный путь для сборки через PyInstaller и другие утилиты."""
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
